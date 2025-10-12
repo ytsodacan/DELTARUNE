@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deltarune Website</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            z-index: 1000;
+            font-family: sans-serif;
+            text-align: center;
+            max-width: 90%;
+        }
+        #fullscreen-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="notification">
+        This is a port of the Deltarune, please buy original game after playing all chapters to support Toby fox.
+    </div>
+    <button id="fullscreen-btn">Fullscreen</button>
+    <iframe src="Deltarune.html" width="100%" height="100%" frameborder="0" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; margin: 0; padding: 0;"></iframe>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const notification = document.getElementById('notification');
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => {
+                        console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+                    });
+                } else {
+                    document.exitFullscreen();
+                }
+            });
+
+            document.addEventListener('fullscreenchange', () => {
+                if (document.fullscreenElement) {
+                    fullscreenBtn.textContent = 'Exit Fullscreen';
+                } else {
+                    fullscreenBtn.textContent = 'Fullscreen';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
